@@ -21,13 +21,5 @@ public interface PlayerService {
 
     List<Player> getByShirtNum(Long shirtNr);
 
-    List<Player> getByOutfit(String outfitter);
-
-    Player updatePlayer(Long id, Player updatedPlayer);
-
-    Player addPlayer(Player player);
-
-    void deletePlayer(Long id);
-
 
 }

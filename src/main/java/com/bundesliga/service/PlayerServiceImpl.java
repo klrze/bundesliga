@@ -5,7 +5,6 @@ import com.bundesliga.exception.ResourceNotFound;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.bundesliga.repository.PlayerRepository;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,41 +34,29 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<Player> getByClub(String club) {
-        return List.of();
+        return playerRepository.findAll().stream()
+                .filter(player -> player.getClub().toLowerCase().contains((club.toLowerCase())))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Player> getByPos(String position) {
-        return List.of();
+        return playerRepository.findAll().stream()
+                .filter(player -> player.getPosition().toLowerCase().contains((position.toLowerCase())))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Player> getByNati(String nationality) {
-        return List.of();
+        return playerRepository.findAll().stream()
+                .filter(player -> player.getNationality().toLowerCase().contains((nationality.toLowerCase())))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Player> getByShirtNum(Long shirtNr) {
-        return List.of();
-    }
-
-    @Override
-    public List<Player> getByOutfit(String outfitter) {
-        return List.of();
-    }
-
-    @Override
-    public Player updatePlayer(Long id, Player updatedPlayer) {
-        return null;
-    }
-
-    @Override
-    public Player addPlayer(Player player) {
-        return null;
-    }
-
-    @Override
-    public void deletePlayer(Long id) {
-
+        return playerRepository.findAll().stream()
+                .filter(player -> player.getShirtNr().equals(shirtNr))
+                .collect(Collectors.toList());
     }
 }
