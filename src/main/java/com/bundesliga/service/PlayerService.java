@@ -21,5 +21,6 @@ public interface PlayerService {
 
     List<Player> getByShirtNum(Long shirtNr);
 
+    List<Player> getByAlpha();
 
 }

@@ -59,4 +59,9 @@ public class PlayerServiceImpl implements PlayerService {
                 .filter(player -> player.getShirtNr().equals(shirtNr))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Player> getByAlpha() {
+        return playerRepository.getAllItemsSortedAlphabetically();
+    }
 }

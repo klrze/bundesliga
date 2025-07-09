@@ -4,14 +4,12 @@ package com.bundesliga.controller;
 import com.bundesliga.entity.Player;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.bundesliga.service.PlayerService;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/player")
 @AllArgsConstructor
@@ -63,4 +61,9 @@ public class PlayerController {
         return ResponseEntity.ok(players);
     }
 
+    @GetMapping("/alpha")
+    public ResponseEntity<List<Player>> getByAlpha() {
+    List<Player> players = playerService.getByAlpha();
+        return ResponseEntity.ok(players);
+    }
 }
