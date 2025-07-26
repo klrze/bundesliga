@@ -1,5 +1,7 @@
 package com.bundesliga.entity;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.Nulls;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,8 +19,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "players")
-public class Player {
+@Table(name = "team_players")
+public class TeamPlayer {
 
     @Id
     @Column(name = "id")
@@ -71,5 +73,12 @@ public class Player {
 
     @Column(name = "outfitter")
     private String outfitter;
+
+    @Column(name = "benchStart")
+    @JsonSetter(nulls = Nulls.SKIP)
+    private String benchStart = "bench";
+
+    @Column(name = "startPosition", nullable = true)
+    private String startPosition;
 
 }
