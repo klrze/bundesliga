@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.bundesliga.repository.TeamPlayerRepository;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,8 +86,45 @@ public class TeamPlayerServiceImpl implements TeamPlayerService {
         return teamPlayerRepository.save(player);
     }
 
+    @Override
+    public TeamPlayer updateStartBench(Long id, String benchStart) {
+        TeamPlayer player = teamPlayerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Player not found"));
 
+        player.setBenchStart(benchStart);
+        return teamPlayerRepository.save(player);
+    }
 
+    @Override
+    public TeamPlayer assignPosition(Long playerId, String position) {
+        position = position.toUpperCase();
+
+        List<TeamPlayer> playersWithPosition = teamPlayerRepository.findByStartPosition(position);
+        boolean takenByAnother = playersWithPosition.stream()
+                .anyMatch(p -> !p.getId().equals(playerId));
+
+        if (takenByAnother) {
+            throw new IllegalStateException("Position '" + position + "' is already assigned to another player.");
+        }
+
+        TeamPlayer player = teamPlayerRepository.findById(playerId)
+                .orElseThrow(() -> new IllegalArgumentException("Player not found"));
+
+        player.setStartPosition(position);
+        return teamPlayerRepository.save(player);
+    }
+
+    @Override
+    public TeamPlayer unassignPosition(Long playerId, String position) {
+        TeamPlayer player = teamPlayerRepository.findById(playerId)
+                .orElseThrow(() -> new IllegalArgumentException("Player not found"));
+
+        if (position.equalsIgnoreCase(player.getStartPosition())) {
+            player.setStartPosition(null);
+            return teamPlayerRepository.save(player);
+        }
+        return player;
+    }
 
 
 }

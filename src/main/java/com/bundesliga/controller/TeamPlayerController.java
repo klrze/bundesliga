@@ -1,5 +1,6 @@
 package com.bundesliga.controller;
 
+import com.bundesliga.dto.BenchStartDTO;
 import com.bundesliga.dto.StartPosDTO;
 import com.bundesliga.entity.Player;
 import com.bundesliga.entity.TeamPlayer;
@@ -73,6 +74,27 @@ public class TeamPlayerController {
         return ResponseEntity.ok(updatedPlayer);
     }
 
+    @PutMapping("/start_bench/{id}")
+    public ResponseEntity<TeamPlayer> updateStartBench(@PathVariable Long id, @RequestBody BenchStartDTO dto) {
+        TeamPlayer updatedPlayer = teamPlayerService.updateStartBench(id, dto.getBenchStart());
+        return ResponseEntity.ok(updatedPlayer);
+    }
+
+    @PostMapping("/assign_position")
+    public ResponseEntity<?> assignPosition(@RequestBody StartPosDTO req) {
+        try {
+            TeamPlayer updated = teamPlayerService.assignPosition(req.getPlayerId(), req.getPosition());
+            return ResponseEntity.ok(updated);
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(409).body(e.getMessage()); // Conflict error if position taken
+        }
+    }
+
+    @PostMapping("/unassign_position")
+    public ResponseEntity<?> unassignPosition(@RequestBody StartPosDTO req) {
+        TeamPlayer updated = teamPlayerService.unassignPosition(req.getPlayerId(), req.getPosition());
+        return ResponseEntity.ok(updated);
+    }
 
 
 

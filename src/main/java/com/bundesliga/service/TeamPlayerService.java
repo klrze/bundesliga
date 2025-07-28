@@ -2,6 +2,7 @@ package com.bundesliga.service;
 import com.bundesliga.entity.TeamPlayer;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface TeamPlayerService {
@@ -26,7 +27,9 @@ public interface TeamPlayerService {
 
     void delete(Long id);
 
-    TeamPlayer updateStartPos(Long id, String startBench);
+    TeamPlayer updateStartPos(Long id, String startPosition);
 
-
+    TeamPlayer updateStartBench(Long id, String benchStart);
+    TeamPlayer assignPosition(Long playerId, String position);
+    TeamPlayer unassignPosition(Long playerId, String position);
 }

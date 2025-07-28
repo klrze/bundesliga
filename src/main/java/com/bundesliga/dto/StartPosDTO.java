@@ -7,6 +7,8 @@ import lombok.Setter;
 @Setter
 public class StartPosDTO {
 
+    private Long playerId;
+    private String position;
     private String startPos;
 
 }

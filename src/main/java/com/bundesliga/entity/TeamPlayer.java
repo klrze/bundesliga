@@ -78,7 +78,7 @@ public class TeamPlayer {
     @JsonSetter(nulls = Nulls.SKIP)
     private String benchStart = "bench";
 
-    @Column(name = "startPosition", nullable = true)
+    @Column(name = "startPosition", nullable = true, unique = true)
     private String startPosition;
 
 }
